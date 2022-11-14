@@ -4,7 +4,7 @@ TP ESE de capteurs et réseaux
 FRAYSSE Corentin 
 ALTABER Solène
 
-**1. TP 1: BUS I²C**
+**TP 1: BUS I²C**
 
 On cherche à piloter le capteur BMP280 DIGITAL PRESSURE SENSOR en I²C.
 
@@ -89,7 +89,7 @@ int32_t bmp280_compensate_T_int32(int32_t adc_T)
  ```
 
 ------------------------------------
-**2. TP 2:  Interfaçage STM32 - Raspberry**
+**TP 2:  Interfaçage STM32 - Raspberry**
 
 Comment le Raspberry a obtenu son adresse IP? Le reseau est : 192.168.88.0/24 ainsi le reseau peut posséder jusqu'a 2^8 machines. C'est le routeur qui attribut une adresse IP aux RPI
 
@@ -136,8 +136,10 @@ curl http://127.0.0.1:5000             <- il affiche l'entête de la page web d'
 ```
 Pour pouvoir prétendre être RESTful, notre serveur devra: répondre sous forme JSON et différencier les méthodes HTTP.
 
+**4. TP Final **
 
-
+On a pu réaliser la compensation de la Temperature sur le capteur et le lier avce la rotation du moteur.
+Partie Raspberry, on a reussi a faire les requetes post et get TP3 et implémentation d'une demande de température a la stm
 
 
 
