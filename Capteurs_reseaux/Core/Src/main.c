@@ -148,8 +148,8 @@ uint8_t rotneg[2] = {0x5A,0x01};
   uint8_t adata2 = 0;
   uint8_t adata3 = 0;
   uint16_t dig_T1 = 0;
-  uint16_t dig_T2 = 0;
-  uint16_t dig_T3 = 0;
+  signed short dig_T2 = 0;
+  signed short dig_T3 = 0;
   BMP280_S32_t t_fine;
 
 
@@ -227,14 +227,14 @@ uint8_t rotneg[2] = {0x5A,0x01};
 	  var2 = (((((temp>>4)-((BMP280_S32_t) dig_T1))*((temp>>4)-((BMP280_S32_t)dig_T1)))>>12)*((BMP280_S32_t)dig_T3))>>14;
 	  t_fine=var1+var2;
 	  T=(t_fine*5+128)>>8;
-	  printf("Température compensée: %d\r\n",T);
+	  printf("Température compensée: %ld\r\n",T);
 
 	  //*********************************************************************************************************
 
 //	  uint8_t rot = data_temp * 360/2^(20);
-
-
-
+// Le moteur tourne de 2xT  (sinon angle trop petit)
+	   rotpos[0] = T/5;
+	   rotneg[0] = T/5;
 	  HAL_CAN_AddTxMessage(&hcan1, &pHeader_can1_moteur, rotpos, &ptxmailbox);
 	  HAL_Delay(1000);
 	  HAL_CAN_AddTxMessage(&hcan1, &pHeader_can1_moteur, rotneg, &ptxmailbox);
