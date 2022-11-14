@@ -1,7 +1,12 @@
-
-from flask import Flask, render_template
+from flask import Flask, render_template,jsonify,request
 import json
+import serial
+
+ser = serial.Serial("/dev/ttyAMA0",9600)
+
 app = Flask(__name__)
+
+temp = []
 
 @app.route('/')
 def hello_world():
@@ -23,23 +28,36 @@ def api_welcome_index(index):
 
 @app.route('/api/request/', methods=['GET', 'POST'])
 @app.route('/api/request/<path>', methods=['GET','POST'])
-#@app.route('/coucou', methods=['GET','POST'])
 def api_request(path=None):
+	resp = {
+		"method":   request.method,
+		"url" :  request.url,
+		"path" : path,
+		"args": request.args,
+		"headers": dict(request.headers),
+	}
+	if request.method == 'POST':
+		resp["POST"] = {
+                	"data" : request.get_json(),
+               	}
+	return jsonify(resp)
 
-    resp = {
-            "method":   request.method,
-            "url" :  request.url,
-            "path" : path,
-            "args": request.args,
-            "headers": dict(request.headers),
-    }
-    if request.method == 'POST':
-        resp["POST"] = {
-                "data" : request.get_json(),
-                "args" : request.args.get('args'),
-}
-    return jsonify(resp)
 
+@app.route('/api/temp', methods=['GET','POST'])
+@app.route('/api/temp/<path>', methods=['GET','POST'])
+def api_temp(path=None):
+	respo = {
+		"température = ":  temp
+	}
+	if request.method == 'POST':
+		respo["POST"] = {
+			"demands" : request.get_json(),
+		}
+		print("GET_T")
+		new_temp = ser.read()
+		print("reading OK")
+		temp.append(new_temp)
+	return jsonify(respo)
 
 @app.errorhandler(404)
 def page_not_found(error):
