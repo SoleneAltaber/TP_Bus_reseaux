@@ -11,7 +11,6 @@ RM := rm -rf
 -include sources.mk
 -include Drivers/STM32F4xx_HAL_Driver/Src/subdir.mk
 -include Core/Startup/subdir.mk
--include Core/Src/BMP280_simple/BMP280/subdir.mk
 -include Core/Src/subdir.mk
 -include objects.mk
 
@@ -61,8 +60,8 @@ all: main-build
 main-build: Capteurs_reseaux.elf secondary-outputs
 
 # Tool invocations
-Capteurs_reseaux.elf Capteurs_reseaux.map: $(OBJS) $(USER_OBJS) C:\Users\coren\STM32CubeIDE\workspace_1.10.1\Capteurs_reseaux\STM32F446RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "Capteurs_reseaux.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\coren\STM32CubeIDE\workspace_1.10.1\Capteurs_reseaux\STM32F446RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Capteurs_reseaux.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Capteurs_reseaux.elf Capteurs_reseaux.map: $(OBJS) $(USER_OBJS) C:\Users\solen\Desktop\soso\Ecole\ENSEA_3A\TP_bus_reseau\TP_Bus_reseaux\Capteurs_reseaux\STM32F446RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "Capteurs_reseaux.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\solen\Desktop\soso\Ecole\ENSEA_3A\TP_bus_reseau\TP_Bus_reseaux\Capteurs_reseaux\STM32F446RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Capteurs_reseaux.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

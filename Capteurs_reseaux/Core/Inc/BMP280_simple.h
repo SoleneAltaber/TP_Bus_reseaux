@@ -30,9 +30,6 @@ static const uint8_t BMP280_TEMP_LEN = 3;
 static const uint8_t BMP280_TRIM_REG_MSB = 0x88;
 static const uint8_t BMP280_TRIM_LEN = 12 * 2;
 
-uint8_t temp_calib[3];
-uint8_t pres_calib[3];
-
 int BMP280_check();
 int BMP280_init();
 BMP280_S32_t BMP280_get_temperature();
